@@ -36,7 +36,7 @@ pub mod ibv_transport_type {
 // 	void			(*_dummy2)(struct ibv_context *context);
 // };
 #[repr(C)]
-struct _ibv_device_ops {
+pub struct _ibv_device_ops {
     pub _dummy1: Option<unsafe extern "C" fn(device: *mut ibv_device, cmd_fd: c_int) -> *mut ibv_context>,
     pub _dummy2: Option<unsafe extern "C" fn(context: *mut ibv_context)>,
 }
@@ -44,7 +44,7 @@ struct _ibv_device_ops {
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 #[repr(C)]
-struct ibv_device {
+pub struct ibv_device {
     _ops: _ibv_device_ops,
     node_type: ibv_node_type::Type,
     transport_type: ibv_transport_type::Type,
@@ -100,6 +100,9 @@ pub struct ibv_mr {
     pub lkey: u32,
     pub rkey: u32,
 }
+
+pub type __u32 = ::std::os::raw::c_uint;
+pub type __be32 = __u32; //big endien, used in network protocols
 
 #[repr(C)]
 pub union imm_data_invalidated_rkey_union_t {
@@ -357,7 +360,7 @@ pub struct ibv_pd {
 }
 
 #[repr(C)]
-struct ibv_qp_cap {
+pub struct ibv_qp_cap {
     pub max_send_wr:     u32,
     pub max_recv_wr:     u32,   
     pub max_send_sge:    u32,
@@ -366,7 +369,7 @@ struct ibv_qp_cap {
 }
 
 #[repr(C)]
-struct ibv_comp_channel {
+pub struct ibv_comp_channel {
     context: *mut ibv_context,
     fd: c_int,
     refcnt: c_int,
@@ -386,7 +389,7 @@ pub struct ibv_cq {
 }
 
 #[repr(C)]
-struct ibv_srq {
+pub struct ibv_srq {
     pub context:      *mut ibv_context,
     pub srq_context:  *mut c_void,
     pub pd:           *mut ibv_pd,
